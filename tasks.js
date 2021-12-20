@@ -71,7 +71,9 @@ function hello(){
 }
 
 /**
- * help list
+ * help list(show the list of commands possible)
+ * 
+ * @returns {void}
  */
  function help(){
   console.log('the possible commands are :hello,(quitor exit),help')
