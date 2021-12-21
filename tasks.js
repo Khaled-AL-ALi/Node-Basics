@@ -79,8 +79,14 @@ function hello(batata){
  * @returns {void}
  */
  function help(){
-  console.log('the possible commands are :hello,(quitor exit),help')
+   choices=['hello','quit' ,'exit' ,'help','hello bstata' ];
+   choices.map((value) => {
+    console.log('the command  :'+value);
+  
+  });
+
 }
+
 
 /**
  * Exits the application
