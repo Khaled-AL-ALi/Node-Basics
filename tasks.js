@@ -16,7 +16,7 @@ function startApp(name) {
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
 }
-
+items = ['a', 'b'];
 
 /**
  * Decides what to do depending on the data that was received
@@ -44,6 +44,9 @@ function onDataReceived(text) {
   }
   else if (text === 'list\n') {
     list();
+  }
+  else if (text.startsWith("add")) {
+    add(t);
   }
   else if (text === 'help\n') {
     help();
@@ -90,19 +93,28 @@ function help() {
 
 }
 
+
 /**
  *  list(show the list i added)
  * 
  * @returns {void}
  */
 function list() {
-  items = ['a', 'b'];
+  
   console.log("the list content :");
   items.map((value) => {
-   
-    console.log(`${items.indexOf(value)+1} - ${value}`);
-
+    console.log(`${items.indexOf(value) + 1} - ${value}`);
   });
+}
+
+
+/**
+ * add(add item to the list)
+ * 
+ * @returns {void}
+ */
+ function add(item) {
+  item == "add " ? console.log("Error") : items.push(item.substring (4));
 
 }
 
