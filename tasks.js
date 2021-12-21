@@ -48,6 +48,9 @@ function onDataReceived(text) {
   else if (text.startsWith("add")) {
     add(t);
   }
+  else if (text.startsWith("remove")) {
+    remove(t);
+  }
   else if (text === 'help\n') {
     help();
   }
@@ -71,7 +74,7 @@ function unknownCommand(c) {
 
 /**
  * Says hello
- *@param  {string} batata 
+ *
  * @returns {void}
  */
 function hello(batata) {
@@ -90,9 +93,7 @@ function help() {
     console.log('the command  :' + value);
 
   });
-
 }
-
 
 /**
  *  list(show the list i added)
@@ -115,6 +116,17 @@ function list() {
  */
  function add(item) {
   item == "add " ? console.log("Error") : items.push(item.substring (4));
+
+}
+
+/**
+ * remove(remove item from the list)
+ * 
+ * @returns {void}
+ */
+ function remove(item) {
+  const myArray = item.split(" ");
+  item == "remove " ? items.pop() : items.splice((myArray[1]-1), 1);
 
 }
 
