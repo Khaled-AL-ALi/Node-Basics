@@ -16,7 +16,7 @@ function startApp(name) {
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
 }
-items = ['a', 'b'];
+items = ['a', 'b', 'c', 'd'];
 
 /**
  * Decides what to do depending on the data that was received
@@ -54,6 +54,9 @@ function onDataReceived(text) {
   else if (text === 'help\n') {
     help();
   }
+  else if (text.startsWith("edit")) {
+    edit(t);
+  }
   else {
     unknownCommand(text);
   }
@@ -88,10 +91,10 @@ function hello(batata) {
  * @returns {void}
  */
 function help() {
-  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata','add','list','remove'];
+  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata', 'add', 'list', 'remove'];
   console.log('the command available are :');
   choices.map((value) => {
-    console.log( value);
+    console.log(value);
 
   });
 }
@@ -102,7 +105,7 @@ function help() {
  * @returns {void}
  */
 function list() {
-  
+
   console.log("the list content :");
   items.map((value) => {
     console.log(`${items.indexOf(value) + 1} - ${value}`);
@@ -115,8 +118,8 @@ function list() {
  * 
  * @returns {void}
  */
- function add(item) {
-  item == "add " ? console.log("Error") : items.push(item.substring (4));
+function add(item) {
+  item == "add " ? console.log("Error") : items.push(item.substring(4));
 
 }
 
@@ -125,12 +128,39 @@ function list() {
  * 
  * @returns {void}
  */
- function remove(item) {
+function remove(item) {
   const myArray = item.split(" ");
-  if((myArray[1]-1)<items.length){
-  item == "remove " ? items.pop() : items.splice((myArray[1]-1), 1);
+  if ((myArray[1] - 1) < items.length) {
+    item == "remove " ? items.pop() : items.splice((myArray[1] - 1), 1);
   }
-  else{console.log('this number not exist');}
+  else { console.log('this number not exist'); }
+}
+
+/**
+ * add(add item to the list)
+ * 
+ * @returns {void}
+ */
+function edit(item) {
+  let myArray = item.split(" ");
+  if (item == 'edit') {
+    console.log('error');
+  }
+  else if (isNaN(myArray[1])) {
+    items.pop();
+    myArray.shift();
+    let text = myArray.join(' ');
+    items.push(text);
+  }
+  else {
+    let pos =myArray[1] - 1;
+    myArray.shift();
+    myArray.shift();
+    items.splice(pos, 1, myArray.join(' '));
+
+  }
+
+
 }
 
 
