@@ -88,9 +88,10 @@ function hello(batata) {
  * @returns {void}
  */
 function help() {
-  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata'];
+  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata','add','list','remove'];
+  console.log('the command available are :');
   choices.map((value) => {
-    console.log('the command  :' + value);
+    console.log( value);
 
   });
 }
