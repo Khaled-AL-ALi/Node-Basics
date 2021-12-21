@@ -9,7 +9,7 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
-function startApp(name){
+function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
@@ -35,17 +35,20 @@ function startApp(name){
  */
 function onDataReceived(text) {
   var t = text.trim();
- 
+
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
-  else if(text.startsWith("hello")){
+  else if (text.startsWith("hello")) {
     hello(t);
   }
-  else if(text === 'help\n'){
+  else if (text === 'list\n') {
+    list();
+  }
+  else if (text === 'help\n') {
     help();
   }
-  else{
+  else {
     unknownCommand(text);
   }
 }
@@ -58,8 +61,8 @@ function onDataReceived(text) {
  * @param  {string} c the text received
  * @returns {void}
  */
-function unknownCommand(c){
-  console.log('unknown command: "'+c.trim()+'"')
+function unknownCommand(c) {
+  console.log('unknown command: "' + c.trim() + '"')
 }
 
 
@@ -68,9 +71,9 @@ function unknownCommand(c){
  *@param  {string} batata 
  * @returns {void}
  */
-function hello(batata){
+function hello(batata) {
   batata == "hello" ? console.log("hello!") : console.log(batata + "!");
- 
+
 }
 
 /**
@@ -78,11 +81,27 @@ function hello(batata){
  * 
  * @returns {void}
  */
- function help(){
-   choices=['hello','quit' ,'exit' ,'help','hello bstata' ];
-   choices.map((value) => {
-    console.log('the command  :'+value);
-  
+function help() {
+  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata'];
+  choices.map((value) => {
+    console.log('the command  :' + value);
+
+  });
+
+}
+
+/**
+ *  list(show the list i added)
+ * 
+ * @returns {void}
+ */
+function list() {
+  items = ['a', 'b'];
+  console.log("the list content :");
+  items.map((value) => {
+   
+    console.log(`${items.indexOf(value)+1} - ${value}`);
+
   });
 
 }
@@ -93,7 +112,7 @@ function hello(batata){
  *
  * @returns {void}
  */
-function quit(){
+function quit() {
   console.log('Quitting now, goodbye!')
   process.exit();
 }
