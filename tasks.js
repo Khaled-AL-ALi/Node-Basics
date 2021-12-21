@@ -127,8 +127,10 @@ function list() {
  */
  function remove(item) {
   const myArray = item.split(" ");
+  if((myArray[1]-1)<items.length){
   item == "remove " ? items.pop() : items.splice((myArray[1]-1), 1);
-
+  }
+  else{console.log('this number not exist');}
 }
 
 
