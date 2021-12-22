@@ -98,7 +98,7 @@ function hello(batata) {
  * @returns {void}
  */
 function help() {
-  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata', 'add', 'list', 'remove'];
+  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata', 'add', 'list', 'remove','check','uncheck'];
   console.log('the command available are :');
   choices.map((value) => {
     console.log(value);
