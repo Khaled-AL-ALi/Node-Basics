@@ -16,7 +16,8 @@ function startApp(name) {
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
 }
-items = ['a', 'b', 'c', 'd'];
+items = ['[ ] a', '[ ] b', '[ ] c', '[ ] d'];
+
 
 /**
  * Decides what to do depending on the data that was received
@@ -41,6 +42,12 @@ function onDataReceived(text) {
   }
   else if (text.startsWith("hello")) {
     hello(t);
+  }
+  else if (text.startsWith("check")) {
+    check(t);
+  }
+  else if (text.startsWith("uncheck")) {
+    uncheck(t);
   }
   else if (text === 'list\n') {
     list();
@@ -99,6 +106,7 @@ function help() {
   });
 }
 
+
 /**
  *  list(show the list i added)
  * 
@@ -108,9 +116,12 @@ function list() {
 
   console.log("the list content :");
   items.map((value) => {
+
     console.log(`${items.indexOf(value) + 1} - ${value}`);
+
   });
 }
+
 
 
 /**
@@ -119,7 +130,7 @@ function list() {
  * @returns {void}
  */
 function add(item) {
-  item == "add " ? console.log("Error") : items.push(item.substring(4));
+  item == "add " ? console.log("Error") : items.push('[ ] ' + item.substring(4));
 
 }
 
@@ -134,6 +145,39 @@ function remove(item) {
     item == "remove " ? items.pop() : items.splice((myArray[1] - 1), 1);
   }
   else { console.log('this number not exist'); }
+}
+
+
+function check(arg) {
+  const myArray = arg.split(" ");
+  if (arg == "check") {
+    console.log('error commend not found go and check help')
+  }
+  else if ((isNaN(myArray[1]) || ((myArray[1] - 1) > items.length))) {
+    console.log('enter a valid number');
+  }
+  else {
+    let pos = myArray[1] - 1;
+    let oldItem = (items[myArray[1] - 1]).substring(3);
+    items.splice(pos, 1, '[✓]' + oldItem);
+
+  }
+}
+
+
+function uncheck(arg) {
+  const myArray = arg.split(" ");
+  if (arg == "uncheck") {
+    console.log('error commend not found go and check help')
+  }
+  else if ((isNaN(myArray[1]) || ((myArray[1] - 1) > items.length))) {
+    console.log('enter a valid number');
+  }
+  else {
+    let pos = myArray[1] - 1;
+    let oldItem = (items[myArray[1] - 1]).substring(3);
+    items.splice(pos, 1, '[ ]' + oldItem);
+  }
 }
 
 /**
@@ -153,16 +197,13 @@ function edit(item) {
     items.push(text);
   }
   else {
-    let pos =myArray[1] - 1;
+    let pos = myArray[1] - 1;
     myArray.shift();
     myArray.shift();
     items.splice(pos, 1, myArray.join(' '));
 
   }
-
-
 }
-
 
 /**
  * Exits the application
