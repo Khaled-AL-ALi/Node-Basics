@@ -171,7 +171,7 @@ function check(arg) {
   else {
     let pos = myArray[1] - 1;
     let oldItem = (items[myArray[1] - 1]);
-    items.splice(pos, 1, '[✓]' + oldItem);
+    items.splice(pos, 1, '[✓]' + oldItem.substring(3));
 
   }
 }
