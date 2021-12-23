@@ -9,14 +9,23 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
+const fs = require('fs');
+
+let data = fs.readFileSync('database.json');
+let realdata = JSON.parse(data);
+let details = Object.values(realdata);
+var items=new Array()
+details.forEach(([value]) => {
+  items=Object.values(details);
+  });
+
 function startApp(name) {
-  process.stdin.resume();
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`)
-  console.log("--------------------")
-}
-items = ['[ ] a', '[ ] b', '[ ] c', '[ ] d'];
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', onDataReceived);
+    console.log(`Welcome to ${name}'s application!`)
+    console.log("--------------------")
+  }
 
 
 /**
@@ -98,7 +107,7 @@ function hello(batata) {
  * @returns {void}
  */
 function help() {
-  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata', 'add', 'list', 'remove','check','uncheck'];
+  choices = ['hello', 'quit', 'exit', 'help', 'hello bstata', 'add', 'list', 'remove', 'check', 'uncheck'];
   console.log('the command available are :');
   choices.map((value) => {
     console.log(value);
@@ -117,9 +126,11 @@ function list() {
   console.log("the list content :");
   items.map((value) => {
 
-    console.log(`${items.indexOf(value) + 1} - ${value}`);
+    console.log(`${items.indexOf(value)+1} - ${value}`);
 
   });
+
+
 }
 
 
@@ -130,8 +141,9 @@ function list() {
  * @returns {void}
  */
 function add(item) {
-  item == "add " ? console.log("Error") : items.push('[ ] ' + item.substring(4));
-
+  const myArray = item.split(" ");
+  item == "add " ? console.log("Error") :  items.push(myArray[1]);
+ 
 }
 
 /**
@@ -158,7 +170,7 @@ function check(arg) {
   }
   else {
     let pos = myArray[1] - 1;
-    let oldItem = (items[myArray[1] - 1]).substring(3);
+    let oldItem = (items[myArray[1] - 1]);
     items.splice(pos, 1, '[✓]' + oldItem);
 
   }
@@ -175,7 +187,7 @@ function uncheck(arg) {
   }
   else {
     let pos = myArray[1] - 1;
-    let oldItem = (items[myArray[1] - 1]).substring(3);
+    let oldItem = (items[myArray[1] - 1]);
     items.splice(pos, 1, '[ ]' + oldItem);
   }
 }
@@ -194,13 +206,13 @@ function edit(item) {
     items.pop();
     myArray.shift();
     let text = myArray.join(' ');
-    items.push(text);
+    items.push('[ ] ' + text);
   }
   else {
     let pos = myArray[1] - 1;
     myArray.shift();
     myArray.shift();
-    items.splice(pos, 1, myArray.join(' '));
+    items.splice(pos, 1, '[ ] ' + myArray.join(' '));
 
   }
 }
@@ -212,7 +224,16 @@ function edit(item) {
  */
 function quit() {
   console.log('Quitting now, goodbye!')
-  process.exit();
+  var fs = require('fs');
+  //this line to transfer array to object;
+  const MyObject = Object.assign({}, items);
+  var fs = require('fs');
+
+  fs.writeFile('database.json', JSON.stringify(MyObject), function (err) {
+    if (err) throw err;
+    console.log('Data Saved!');
+    process.exit();
+  });
 }
 
 // The following line starts the application
