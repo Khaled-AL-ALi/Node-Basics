@@ -10,22 +10,33 @@
  * @returns {void}
  */
 const fs = require('fs');
+const { argv } = require('process');
+let file = process.argv[2];
+if (argv.length<3) {
+  file = 'database.json';
+}
 
-let data = fs.readFileSync('database.json');
+
+console.log(file);
+
+let data = fs.readFileSync(file);
 let realdata = JSON.parse(data);
 let details = Object.values(realdata);
-var items=new Array()
+var items = new Array()
 details.forEach(([value]) => {
-  items=Object.values(details);
-  });
+  items = Object.values(details);
+});
+
+
+
 
 function startApp(name) {
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('data', onDataReceived);
-    console.log(`Welcome to ${name}'s application!`)
-    console.log("--------------------")
-  }
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('data', onDataReceived);
+  console.log(`Welcome to ${name}'s application!`)
+  console.log("--------------------")
+}
 
 
 /**
@@ -126,7 +137,7 @@ function list() {
   console.log("the list content :");
   items.map((value) => {
 
-    console.log(`${items.indexOf(value)+1} - ${value}`);
+    console.log(`${items.indexOf(value) + 1} - ${value}`);
 
   });
 
@@ -142,8 +153,8 @@ function list() {
  */
 function add(item) {
   const myArray = item.split(" ");
-  item == "add " ? console.log("Error") :  items.push(myArray[1]);
- 
+  item == "add " ? console.log("Error") : items.push(myArray[1]);
+
 }
 
 /**
@@ -229,7 +240,7 @@ function quit() {
   const MyObject = Object.assign({}, items);
   var fs = require('fs');
 
-  fs.writeFile('database.json', JSON.stringify(MyObject), function (err) {
+  fs.writeFile(file, JSON.stringify(MyObject), function (err) {
     if (err) throw err;
     console.log('Data Saved!');
     process.exit();
